@@ -9,8 +9,6 @@ Alta Assistida (nome provisório) transforma o sumário de alta hospitalar num p
 | Campo | Valor |
 | --- | --- |
 | Curso | Ciência da Computação — FMU |
-| Disciplina | [nome da disciplina] |
-| Professor | [nome] |
 | Entrega | Checkpoint 1 — documento de ideação |
 | Organização | [github.com/gabibribru/alta-assistida](https://github.com/FMU-Tech-Inovacao-2026-2) (publico) |
 
