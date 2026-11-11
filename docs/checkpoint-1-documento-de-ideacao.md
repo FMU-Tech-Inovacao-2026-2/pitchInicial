@@ -20,7 +20,7 @@ Na alta hospitalar, o paciente recebe um sumário escrito para outros profission
 
 O documento reúne diagnósticos, medicamentos novos, mudanças de dose, horários, cuidados e retornos, quase sempre em linguagem técnica e abreviada. Em casa, sem o profissional por perto, o paciente ou o cuidador precisa interpretar esse texto sozinho. Erros nessa etapa, como tomar a dose errada, manter um remédio suspenso ou esquecer um retorno, contribuem para complicações e reinternações.
 
-Um estudo que acompanhou 400 pacientes após a alta de um serviço de clínica médica encontrou eventos adversos em 19% deles, e dois terços desses eventos estavam ligados a medicamentos ([Forster et al., Annals of Internal Medicine, 2003](https://psnet.ahrq.gov/issue/incidence-and-severity-adverse-events-affecting-patients-after-discharge-hospital); números relatados em [Clinician.com](https://www.clinician.com/articles/28487-safety-concerns-should-not-end-with-discharge)). [Se possível, complementar com um dado brasileiro.]
+Um estudo que acompanhou 400 pacientes após a alta de um serviço de clínica médica encontrou eventos adversos em 19% deles, e dois terços desses eventos estavam ligados a medicamentos ([Forster et al., Annals of Internal Medicine, 2003](https://psnet.ahrq.gov/issue/incidence-and-severity-adverse-events-affecting-patients-after-discharge-hospital); números relatados em [Clinician.com](https://www.clinician.com/articles/28487-safety-concerns-should-not-end-with-discharge)).
 
 ## Solução proposta
 
