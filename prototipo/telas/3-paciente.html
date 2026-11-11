@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plano de cuidados do paciente · Alta Assistida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F4F7FA}
+a{color:#187C80}a:hover{color:#0F5C5F}
+</style>
+<style>body{background:#DCE3EC!important}</style>
+</head>
+<body>
+<nav aria-label="Telas do protótipo" style="font-family:Inter,system-ui,sans-serif;font-size:13px;background:#0B1B30;color:#C9D6E8;padding:8px 16px;display:flex;gap:16px;flex-wrap:wrap"><a href="../index.html" style="color:#FFFFFF">Protótipo Alta Assistida</a><a href="1-envio.html" style="color:#C9D6E8">1. Envio</a><a href="2-revisao.html" style="color:#C9D6E8">2. Revisão</a><a href="3-paciente.html" style="color:#C9D6E8">3. Paciente</a></nav><div style="display:flex;justify-content:center;padding:24px 0"><div style="width: 390px; box-sizing: border-box; background: #F4F7FA; font-family: Inter, system-ui, sans-serif; color: #142D4E; display: flex; flex-direction: column">
+<header style="background: #142D4E; color: #FFFFFF; padding: 24px 20px 28px; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 14px; color: #C9D6E8; font-weight: 500">Alta Assistida</span>
+<h1 style="margin: 0; font-size: 26px; line-height: 1.25; font-weight: 700">Seu plano de cuidados em casa</h1>
+<div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; margin-top: 4px; padding: 6px 12px; border-radius: 999px; background: #1F3D63; font-size: 14px; color: #E3EDF8">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7FD1C9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+Aprovado pela sua equipe de saúde
+</div>
+</header>
+<div style="padding: 20px 16px 32px; display: flex; flex-direction: column; gap: 16px">
+<section style="background: #FFFBEB; border: 1px solid #F3D38A; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9A4A06" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<h2 style="margin: 0; font-size: 18px; font-weight: 700; color: #6B3304">Procure o pronto-socorro se tiver</h2>
+</div>
+<ul style="margin: 0; padding-left: 22px; font-size: 17px; line-height: 1.6; color: #4A2402">
+<li>Ganho de mais de 2 kg em 3 dias</li>
+<li>Falta de ar</li>
+<li>Inchaço nas pernas</li>
+</ul>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #D5DEE9; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<h2 style="margin: 0; font-size: 20px; font-weight: 700">Remédios de hoje</h2>
+<span style="font-size: 15px; color: #4A5A70">2 de 6</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #187C80">Manhã, com o café</h3>
+<div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 10px; background: #F1F8F8">
+<input id="m1" type="checkbox" checked="checked" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="m1" style="display: flex; flex-direction: column; gap: 2px; font-size: 17px; line-height: 1.4"><span style="font-weight: 600">Furosemida 40 mg</span><span style="font-size: 15px; color: #4A5A70">1 vez ao dia, pela manhã</span></label>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 10px; background: #F1F8F8">
+<input id="m2" type="checkbox" checked="checked" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="m2" style="display: flex; flex-direction: column; gap: 2px; font-size: 17px; line-height: 1.4"><span style="font-weight: 600">Enalapril 10 mg</span><span style="font-size: 15px; color: #4A5A70">De 12 em 12 horas</span></label>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 10px; border: 1px solid #D5DEE9">
+<input id="m3" type="checkbox" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="m3" style="display: flex; flex-direction: column; gap: 2px; font-size: 17px; line-height: 1.4"><span style="font-weight: 600">Carvedilol 6,25 mg</span><span style="font-size: 15px; color: #4A5A70">Junto com a refeição</span></label>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #187C80">Depois do almoço</h3>
+<div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 10px; border: 1px solid #D5DEE9">
+<input id="m4" type="checkbox" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="m4" style="display: flex; flex-direction: column; gap: 2px; font-size: 17px; line-height: 1.4"><span style="font-weight: 600">AAS 100 mg</span><span style="font-size: 15px; color: #4A5A70">1 vez ao dia</span></label>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #187C80">Noite, com o jantar</h3>
+<div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 10px; border: 1px solid #D5DEE9">
+<input id="m5" type="checkbox" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="m5" style="display: flex; flex-direction: column; gap: 2px; font-size: 17px; line-height: 1.4"><span style="font-weight: 600">Enalapril 10 mg</span><span style="font-size: 15px; color: #4A5A70">De 12 em 12 horas</span></label>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: 10px; border: 1px solid #D5DEE9">
+<input id="m6" type="checkbox" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="m6" style="display: flex; flex-direction: column; gap: 2px; font-size: 17px; line-height: 1.4"><span style="font-weight: 600">Carvedilol 6,25 mg</span><span style="font-size: 15px; color: #4A5A70">Junto com a refeição</span></label>
+</div>
+</div>
+<a href="#" style="font-size: 15px; font-weight: 600">Ver o que diz o sumário original</a>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #D5DEE9; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 20px; font-weight: 700">Pare de tomar</h2>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; background: #FEE4E2">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A1C12" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M5.7 5.7l12.6 12.6"></path></svg>
+<span style="font-size: 17px; font-weight: 600; color: #6B1A12">Hidroclorotiazida</span>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #D5DEE9; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 20px; font-weight: 700">Cuidados de todo dia</h2>
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<input id="c1" type="checkbox" checked="checked" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="c1" style="font-size: 17px; line-height: 1.45">Pesar-se hoje e anotar o peso</label>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<input id="c2" type="checkbox" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="c2" style="font-size: 17px; line-height: 1.45">Beber no máximo 1,5 litro de líquidos no dia</label>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<input id="c3" type="checkbox" style="width: 24px; height: 24px; margin: 2px 0 0; accent-color: #187C80">
+<label for="c3" style="font-size: 17px; line-height: 1.45">Comer com pouco sal</label>
+</div>
+</section>
+<section style="background: #FFFFFF; border: 1px solid #D5DEE9; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 20px; font-weight: 700">Próximos compromissos</h2>
+<div style="display: flex; gap: 14px; align-items: flex-start">
+<div style="flex: 0 0 56px; height: 56px; border-radius: 10px; background: #E6F2F2; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #0F5C5F"><span style="font-size: 20px; font-weight: 700; line-height: 1">16</span><span style="font-size: 12px; font-weight: 600">nov</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 17px; font-weight: 600">Exames de sangue</span><span style="font-size: 15px; color: #4A5A70">Potássio e creatinina, 7 dias após a alta</span></div>
+</div>
+<div style="display: flex; gap: 14px; align-items: flex-start">
+<div style="flex: 0 0 56px; height: 56px; border-radius: 10px; background: #E6F2F2; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #0F5C5F"><span style="font-size: 20px; font-weight: 700; line-height: 1">23</span><span style="font-size: 12px; font-weight: 600">nov</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 17px; font-weight: 600">Consulta de cardiologia</span><span style="font-size: 15px; color: #4A5A70">Ambulatório, 14 dias após a alta</span></div>
+</div>
+</section>
+<p style="margin: 4px 4px 0; font-size: 14px; line-height: 1.5; color: #4A5A70">Este plano organiza o que está no seu sumário de alta. Em caso de dúvida sobre seus remédios, fale com sua equipe de saúde ou farmacêutico.</p>
+</div>
+</div></div>
+</body>
+</html>
