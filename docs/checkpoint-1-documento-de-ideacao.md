@@ -12,7 +12,7 @@ Alta Assistida (nome provisório) transforma o sumário de alta hospitalar num p
 | Disciplina | [nome da disciplina] |
 | Professor | [nome] |
 | Entrega | Checkpoint 1 — documento de ideação |
-| Repositório | github.com/gabibribru/alta-assistida (privado) |
+| Organização | [github.com/gabibribru/alta-assistida](https://github.com/FMU-Tech-Inovacao-2026-2) (publico) |
 
 ## Problema
 
