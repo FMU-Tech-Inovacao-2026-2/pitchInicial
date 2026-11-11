@@ -14,13 +14,6 @@ Alta Assistida (nome provisório) transforma o sumário de alta hospitalar num p
 | Entrega | Checkpoint 1 — documento de ideação |
 | Repositório | github.com/gabibribru/alta-assistida (privado) |
 
-| Integrante | RA | Papel |
-| --- | --- | --- |
-| Gabriel Reis | [RA] | [papel] |
-| [nome] | [RA] | [papel] |
-| [nome] | [RA] | [papel] |
-| [nome] | [RA] | [papel] |
-
 ## Problema
 
 Na alta hospitalar, o paciente recebe um sumário escrito para outros profissionais de saúde, não para ele.
