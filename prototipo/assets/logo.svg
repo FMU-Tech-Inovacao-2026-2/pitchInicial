@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 64" role="img" aria-label="HealthIA">
+  <rect width="64" height="64" rx="16" fill="#142D4E"/>
+  <rect x="24" y="11" width="16" height="42" rx="4" fill="#FFFFFF"/>
+  <rect x="11" y="24" width="42" height="16" rx="4" fill="#FFFFFF"/>
+  <polyline points="12,32 22,32 27,26 33,38 38,32 52,32" fill="none" stroke="#187C80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="78" y="45" font-family="Inter, system-ui, Arial, sans-serif" font-size="38" font-weight="700" letter-spacing="-0.5"><tspan fill="#142D4E">Health</tspan><tspan fill="#187C80">IA</tspan></text>
+</svg>
