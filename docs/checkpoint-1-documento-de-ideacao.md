@@ -10,7 +10,6 @@ HealthIA é uma plataforma de apoio à decisão e à comunicação em saúde. El
 | --- | --- |
 | Projeto | HealthIA |
 | Curso | Ciência da Computação — FMU |
-
 | Entrega | Checkpoint 1 — documento de ideação |
 | Organização | https://github.com/FMU-Tech-Inovacao-2026-2 (publico) |
 
