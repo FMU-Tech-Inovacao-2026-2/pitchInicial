@@ -112,7 +112,7 @@ O back-end é o único componente que fala com a IA e com o banco, e é nele que
 
 ```mermaid
 flowchart LR
-    F["Front-end<br/>React"] -- "1" --> B["Back-end<br/>FastAPI"]
+    F["Front-end<br/>React + Vite + TypeScript"] -- "1" --> B["Back-end<br/>Node.js + Express + TypeScript + Zod"]
     B -- "2" --> G["Gemini API"]
     G -- "3" --> B
     B <-- "4" --> S[("Supabase<br/>PostgreSQL + Auth")]
@@ -137,8 +137,8 @@ flowchart LR
 
 | Camada | Tecnologia | Motivo da escolha |
 | --- | --- | --- |
-| Front-end | React, Vite, TypeScript, Tailwind CSS | Mesma base usada no Hackathon FMU (Finance-ai) |
-| Back-end | Python, FastAPI, Pydantic | Validação do JSON da IA com pouco código |
+| Front-end | React, Vite, TypeScript, Tailwind CSS | Interface web compartilhada pelos módulos |
+| Back-end | Node.js, Express, TypeScript, Zod | API HTTP e validação de entradas e saídas estruturadas |
 | IA | Gemini API com saída estruturada | Modelo usado sem treinamento próprio |
 | Dados e login | Supabase (PostgreSQL e Auth) | Banco e autenticação gerenciados, sem infraestrutura para manter |
 | Versionamento | GitHub | Repositório do projeto na organização da turma |

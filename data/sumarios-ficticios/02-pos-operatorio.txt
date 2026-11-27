@@ -1,0 +1,9 @@
+SUMÁRIO DE ALTA — CASO FICTÍCIO
+
+Paciente: Paciente Demo (identificação inventada)
+
+Medicação: Paracetamol 750 mg por via oral a cada 8 horas se houver dor, por até 3 dias.
+
+Cuidados: manter o curativo limpo e seco até a avaliação da equipe.
+
+Retorno: retornar ao ambulatório em 7 dias para revisão.

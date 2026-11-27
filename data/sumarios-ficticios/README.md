@@ -1,30 +1,19 @@
-# Dados fictícios
+# Sumários fictícios
 
-Massa de teste do projeto. **Somente dados inventados pela equipe** — nenhum nome, documento ou caso real de paciente.
+Esta pasta contém arquivos de texto inventados para demonstração e desenvolvimento do Alta Assistida. Não use, copie ou substitua seu conteúdo por dados reais ou identificáveis de pacientes.
 
-## Sumários de alta (Alta Assistida)
+## Arquivos disponíveis
 
-Cada sumário fica num arquivo `.txt`, acompanhado de um `.json` com a extração esperada (os medicamentos, alertas e retornos que o sistema precisa encontrar).
+| Arquivo | Conteúdo | ID correspondente no catálogo da API |
+| --- | --- | --- |
+| [`01-cardiaco.txt`](01-cardiaco.txt) | Caso de alta cardiológica com medicações, cuidado, retorno e sinal de alerta. | `sumario-cardiaco-01` |
+| [`02-pos-operatorio.txt`](02-pos-operatorio.txt) | Caso após procedimento com analgesia, cuidado local e retorno. | `sumario-pos-operatorio-02` |
 
-| Arquivo | Caso coberto |
-| --- | --- |
-| `01-padrao.txt` | Sumário completo, 3 a 5 medicamentos |
-| `02-muitos-medicamentos.txt` | Polifarmácia, mudanças de dose e remédio suspenso |
-| `03-curto.txt` | Sumário muito curto, com informações faltando |
-| `04-confuso.txt` | Abreviações e texto desorganizado |
-| `05-sem-medicamentos.txt` | Nenhum medicamento prescrito na alta |
+Os mesmos casos são cadastrados no repositório `Backend/back-end`, em `src/modules/alta/alta.repository.ts`, para a opção “Escolher da base”. Essa cópia no pitch também pode ser importada como arquivo no modo integrado. Como os repositórios são independentes, mantenha os textos sincronizados ao editar um caso.
 
-## Prescrições e fichas (Prescrição Assistida e Paciente Assistido) — a criar
+## Uso e limites
 
-Pacientes inventados, cada um com alergias, internações e prescrições anteriores, para testar a conferência de alergia e o chat.
-
-| Caso | O que testa |
-| --- | --- |
-| Prescrição simples | Extração de 2 a 3 itens com origem verificada |
-| Prescrição com abreviações | Doses e frequências escritas de forma abreviada |
-| Medicamento que coincide com alergia | Aviso de alergia na revisão |
-| Prescrição incompleta | Campos ausentes aparecem como "não informado" |
-| Paciente com várias internações | Perguntas sobre histórico geral e recente |
-| Pergunta sem resposta na ficha | Resposta "não consta no histórico" |
-
-Responsável: Pessoa 3.
+- Importe os `.txt` pelo fluxo de arquivo do front-end integrado ou abra-os para copiar o texto.
+- O catálogo local da API pode ser selecionado sem importar um arquivo.
+- Não há resultados esperados em JSON: as respostas da IA podem variar e precisam ser revisadas.
+- O conteúdo é apenas material de teste acadêmico, não orientação clínica. A IA não diagnostica nem recomenda tratamento; somente um profissional pode aprovar sugestões para o plano.

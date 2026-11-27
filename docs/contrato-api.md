@@ -1,101 +1,126 @@
-# Contrato da API (rascunho)
+# Contrato da API
 
-Rascunho para a fase de fundação e protótipo. Todas as rotas, exceto o login, exigem o token do Supabase Auth no cabeçalho `Authorization: Bearer <token>`. O back-end confere o perfil (`profissional` ou `paciente`) em cada rota.
+Este documento descreve as rotas implementadas no back-end Node.js + Express + Zod. A autenticação usa JWT emitido e validado pela própria API. Usuários, extrações e planos ficam em memória. Todas as contas e sumários são fictícios.
 
-As rotas do Alta Assistida ganharam o prefixo `/alta` porque agora ele é um módulo da HealthIA.
+Rotas protegidas recebem `Authorization: Bearer <accessToken>`. O servidor valida assinatura, expiração e perfil em cada rota. Erros seguem `{ "erro": { "codigo": "...", "mensagem": "..." } }`. Respostas autenticadas usam `Cache-Control: no-store`.
 
-## Endpoints do MVP
+## Rotas
 
-| Módulo | Método | Rota | Perfil | Função |
-| --- | --- | --- | --- | --- |
-| Login | POST | `/auth/login` | Todos | Entrada com e-mail e senha (via Supabase Auth); devolve o token e o perfil |
-| Home | GET | `/modulos` | Todos | Lista os módulos liberados para o perfil |
-| Alta Assistida | POST | `/alta/extracoes` | Profissional | Recebe o texto do sumário e devolve a extração com status `pendente` |
-| Alta Assistida | POST | `/alta/extracoes/{id}/aprovar` | Profissional | Aprova a extração |
-| Alta Assistida | GET | `/alta/planos/{id}` | Paciente | Plano aprovado para o dashboard do paciente |
-| Prescrição Assistida | POST | `/prescricoes` | Profissional | Recebe o texto da prescrição e o `paciente_id`; devolve a extração `pendente` |
-| Prescrição Assistida | POST | `/prescricoes/{id}/aprovar` | Profissional | Aprova e grava a prescrição na ficha do paciente |
-| Paciente Assistido | GET | `/pacientes/{id}/ficha` | Profissional | Prescrições, internações e alergias do paciente |
-| Paciente Assistido | POST | `/pacientes/{id}/chat` | Profissional | Pergunta em linguagem natural; devolve a resposta com as fontes |
+| Método | Rota | Perfil | Resultado |
+| --- | --- | --- | --- |
+| GET | `/health` | Público | Estado da API, versão e modo de extração |
+| POST | `/auth/login` | Público | Emite JWT e usuário público |
+| GET | `/auth/me` | Autenticado | Usuário da sessão |
+| GET | `/pacientes` | Profissional | Pacientes fictícios disponíveis |
+| GET | `/alta/sumarios` | Profissional | Sumários fictícios selecionáveis |
+| GET | `/alta/termo-aceite` | Profissional | Termo de aceite vigente (versão e declarações) |
+| GET | `/alta/extracoes` | Profissional | Extrações do próprio profissional, sem texto clínico |
+| POST | `/alta/extracoes` | Profissional | Extrai sugestões a partir da base, texto ou arquivo já lido |
+| GET | `/alta/extracoes/{id}` | Profissional | Extração do próprio profissional |
+| POST | `/alta/extracoes/{id}/aprovar` | Profissional | Aprova sugestões selecionadas e verificadas, com aceite |
+| GET | `/alta/extracoes/{id}/plano` | Profissional | Plano e comprovante de aceite de uma extração aprovada |
+| GET | `/alta/planos/me` | Paciente | Plano aprovado do paciente autenticado |
 
-## Alta Assistida — formato da extração
+Login: `POST /auth/login` recebe `{ "email": "...", "senha": "..." }` e devolve `{ "accessToken", "tokenType", "expiresIn", "user": { "id", "nome", "email", "role" } }`. As contas fictícias de desenvolvimento estão no README do back-end.
+
+## Criar extração
+
+O corpo é discriminado por `origem`. Todos os casos exigem `paciente_id`.
+
+```json
+{ "origem": "base", "paciente_id": "u-002", "sumario_id": "sumario-cardiaco-01" }
+```
+
+```json
+{ "origem": "texto", "paciente_id": "u-002", "texto": "Texto fictício do sumário..." }
+```
+
+```json
+{ "origem": "arquivo", "paciente_id": "u-002", "nome_arquivo": "alta.txt", "texto": "Texto extraído localmente do arquivo..." }
+```
+
+O front lê TXT e PDFs com camada de texto e envia só o conteúdo. O back-end não recebe nem armazena o binário. A resposta é a extração com `status: "pendente"`, `sugestoes`, `nao_informado`, `texto_original` e identificadores. O servidor calcula `origem_verificada` comparando cada citação com o texto original; o que o modelo declara não basta.
+
+Com `GEMINI_PROVEDOR=demonstracao`, só os sumários do catálogo geram sugestões. Um deles traz, de propósito, uma citação inexistente, que chega com `origem_verificada: false`. Textos livres recebem `503 SERVICO_INDISPONIVEL`.
+
+## Termo de aceite
+
+`GET /alta/termo-aceite` devolve o texto vigente. O servidor é a fonte única; o front exibe exatamente essas declarações.
 
 ```json
 {
-  "status": "pendente",
-  "medicamentos": [
-    {
-      "nome": "[nome]",
-      "dose": "[ex.: 500 mg]",
-      "frequencia": "[ex.: de 8 em 8 horas]",
-      "duracao": "[ex.: 7 dias]",
-      "orientacao": "[ex.: após as refeições]",
-      "trecho_origem": "[trecho copiado do sumário]",
-      "origem_verificada": true
-    }
-  ],
-  "alertas": [
-    { "texto": "[alerta]", "trecho_origem": "[trecho]", "origem_verificada": true }
-  ],
-  "retornos": [
-    { "texto": "[retorno ou exame agendado]", "trecho_origem": "[trecho]", "origem_verificada": true }
-  ],
-  "nao_informado": ["[campo que o sumário não traz]"]
+  "versao": "2026-11-v1",
+  "titulo": "Termo de aceite profissional",
+  "resumo": "As sugestões foram organizadas por inteligência artificial...",
+  "declaracoes": [
+    { "id": "revisao_integral", "texto": "Revisei cada item aprovado e conferi o trecho de origem..." },
+    { "id": "ciente_limitacoes_ia", "texto": "Estou ciente de que a IA pode omitir, interpretar mal ou errar informações..." },
+    { "id": "decisao_profissional", "texto": "Assumo a decisão profissional sobre o conteúdo aprovado..." },
+    { "id": "finalidade_lgpd", "texto": "Uso os dados de saúde deste paciente somente para a tutela da sua saúde... (Lei nº 13.709/2018, art. 11, II, \"f\")." }
+  ]
 }
 ```
 
-## Prescrição Assistida — formato da extração
+A redação é acadêmica e precisa de validação jurídica antes de uso com pacientes reais.
+
+## Aprovação e plano
+
+`POST /alta/extracoes/{id}/aprovar` recebe os IDs aceitos, as edições opcionais e o aceite:
 
 ```json
 {
-  "status": "pendente",
-  "paciente_id": "[id]",
-  "itens": [
-    {
-      "medicamento": "[nome]",
-      "dose": "[ex.: 100 mg]",
-      "via": "[ex.: oral]",
-      "frequencia": "[ex.: 1 vez ao dia]",
-      "duracao": "[ex.: uso contínuo]",
-      "orientacao": "[ex.: após o almoço]",
-      "trecho_origem": "[trecho copiado da prescrição]",
-      "origem_verificada": true,
-      "alerta_alergia": { "alergia_registrada": "[alergia]", "registro_origem": "[id do registro]" }
-    }
+  "itens_aprovados": ["<id-sugestao>"],
+  "sugestoes_editadas": [
+    { "id": "<id-sugestao>", "titulo": "Título revisado", "descricao": "Descrição revisada" }
   ],
-  "nao_informado": ["[campo que a prescrição não traz]"]
+  "aceite": {
+    "versao_termo": "2026-11-v1",
+    "declaracoes": ["revisao_integral", "ciente_limitacoes_ia", "decisao_profissional", "finalidade_lgpd"]
+  }
 }
 ```
 
-`alerta_alergia` só aparece quando o medicamento coincide com uma alergia da ficha. A comparação é feita pelo back-end, nunca pela IA, e o aviso não bloqueia a aprovação: a decisão é do médico.
+Regras validadas no servidor:
 
-## Paciente Assistido — chat
+| Situação | Resposta |
+| --- | --- |
+| Nenhum item aprovado ou corpo inválido | `400 DADOS_INVALIDOS` |
+| Versão do termo diferente da vigente ou declaração faltando | `422 ACEITE_INCOMPLETO` |
+| Edição de item não selecionado ou item sem origem verificada | `403 SEM_PERMISSAO` |
+| Item que não pertence à extração, ou extração de outro profissional | `404 NAO_ENCONTRADO` |
+| Extração já aprovada | `409 CONFLITO` |
 
-Requisição:
-
-```json
-{ "pergunta": "[texto do médico]", "periodo": "geral" }
-```
-
-`periodo` aceita `geral` ou `recente`.
-
-Resposta:
+A citação original continua ligada ao item editado. A resposta é o plano aprovado, com o registro do aceite:
 
 ```json
 {
-  "resposta": "[texto]",
-  "fontes": [
-    { "tipo": "prescricao", "registro_id": "[id]", "trecho": "[trecho do registro]", "origem_verificada": true }
-  ],
-  "consta_no_historico": true
+  "id": "<id-plano>",
+  "paciente_id": "u-002",
+  "profissional_id": "u-001",
+  "extracao_id": "<id-extracao>",
+  "itens": [ { "id": "...", "categoria": "medicamento", "titulo": "...", "descricao": "...", "trecho_origem": "...", "origem_verificada": true } ],
+  "criado_em": "2026-11-27T12:00:00.000Z",
+  "aceite": {
+    "versao_termo": "2026-11-v1",
+    "declaracoes": [ { "id": "revisao_integral", "texto": "..." } ],
+    "profissional_id": "u-001",
+    "profissional_nome": "Dra. Ana Demo",
+    "registrado_em": "2026-11-27T12:00:00.000Z",
+    "hash_conteudo": "<sha-256 de extração, versão do termo e itens aprovados>"
+  }
 }
 ```
 
-`tipo` aceita `prescricao`, `internacao` ou `alergia`. Quando a informação não está na ficha, `consta_no_historico` é `false`, `fontes` vem vazio e a resposta diz que não consta no histórico.
+O paciente consulta somente o próprio plano em `GET /alta/planos/me` (`404` enquanto não houver plano). O profissional reabre o comprovante em `GET /alta/extracoes/{id}/plano`.
 
-## Regra de verificação de origem
+## Auditoria
 
-`origem_verificada` é calculado pelo back-end, nunca pela IA.
+A API registra eventos de login, extração e aprovação com IDs, contagens, versão do termo e hash, sem texto clínico, senha ou token.
 
-- **Alta e Prescrição:** o campo é `true` somente se `trecho_origem` aparece no texto enviado (comparação após normalizar espaços e maiúsculas/minúsculas). Itens com `false` aparecem em destaque para o profissional e não vão para o plano nem para a ficha sem correção.
-- **Chat:** o campo é `true` somente se o `registro_id` citado existe na ficha do paciente da conversa e o `trecho` aparece nesse registro. Fontes com `false` são descartadas da resposta e sinalizadas.
+## Limites atuais
+
+- Catálogo, usuários, extrações e planos ficam em memória e são apagados quando o servidor reinicia. Por isso o deploy usa uma única instância.
+- O modo demonstração do front reproduz estas regras no navegador e não chama a API.
+- A extração real usa Gemini pela Gemini API (`GEMINI_PROVEDOR=api-key`) ou pelo Vertex AI (`GEMINI_PROVEDOR=vertex`).
+- Prescrição Assistida e Paciente Assistido ainda não têm rotas.
+- Não use dados reais de pacientes. A IA organiza o conteúdo recebido; não diagnostica nem recomenda tratamento.

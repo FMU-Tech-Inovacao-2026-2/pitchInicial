@@ -1,0 +1,54 @@
+# Verificações do repositório de documentação: nenhum segredo versionado,
+# JSON válido e links locais dos Markdown apontando para arquivos existentes.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    name: Documentação e protótipo
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Nenhum arquivo .env versionado
+        run: |
+          if git ls-files | grep -E '(^|/)\.env($|\.)' | grep -v '\.env\.example$'; then
+            echo "Remova os arquivos .env acima do repositório."; exit 1
+          fi
+
+      - name: JSON válido
+        run: |
+          git ls-files '*.json' | while read -r arquivo; do
+            python3 -m json.tool "$arquivo" > /dev/null || { echo "JSON inválido: $arquivo"; exit 1; }
+          done
+
+      - name: Links locais dos Markdown
+        run: |
+          python3 - <<'EOF'
+          import pathlib, re, sys, urllib.parse
+          falhas = []
+          for md in pathlib.Path('.').rglob('*.md'):
+              if '.git' in md.parts:
+                  continue
+              for alvo in re.findall(r'\]\(([^)\s]+)\)', md.read_text(encoding='utf-8')):
+                  if re.match(r'^(https?:|mailto:|#)', alvo):
+                      continue
+                  caminho = urllib.parse.unquote(alvo.split('#')[0])
+                  if caminho and not (md.parent / caminho).exists():
+                      falhas.append(f'{md}: {alvo}')
+          print('\n'.join(falhas) or 'Links locais OK')
+          sys.exit(1 if falhas else 0)
+          EOF
