@@ -1,0 +1,15 @@
+SUMÁRIO DE ALTA HOSPITALAR — CASO FICTÍCIO
+
+Paciente: Paciente Demo (identificação inventada)
+
+Diagnóstico de alta: insuficiência cardíaca descompensada.
+
+Medicações na alta:
+- Furosemida 40 mg por via oral pela manhã, durante 7 dias.
+- Enalapril 10 mg por via oral a cada 12 horas.
+
+Cuidados: pesar-se todos os dias pela manhã e anotar o peso.
+
+Retorno: consulta com cardiologia em 14 dias.
+
+Sinais de alerta: procurar atendimento se houver falta de ar em repouso ou inchaço que piore.
