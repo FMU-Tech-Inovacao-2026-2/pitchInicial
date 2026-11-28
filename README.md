@@ -12,6 +12,7 @@ Os repositórios são independentes. Este repositório contém a ideação, o co
 
 | Área | Estado atual |
 | --- | --- |
+| Fichário de pacientes | Cadastro, ficha com sumários de alta, histórico e plano vigente. PDF digitalizado pode ser transcrito pela IA, com conferência humana obrigatória. |
 | Alta Assistida | Fluxo executável integrado à API e em modo demonstração. Três etapas: paciente e sumário; decisão sobre cada sugestão com o trecho destacado no sumário; revisão final com termo de aceite (LGPD) e comprovante com hash do conteúdo. |
 | Visão do paciente | Plano aprovado com sinais de alerta em destaque, medicamentos, cuidados e retornos, quem aprovou e quando, origem de cada item e impressão. |
 | Prescrição Assistida | Parte da visão do produto; ainda não há módulo ou endpoints implementados. |
@@ -31,6 +32,8 @@ flowchart LR
     A <--> M[("Repositórios em memória")]
     A -- "extração pendente ou plano aprovado" --> U
 ```
+
+O back-end segue arquitetura hexagonal (domínio, casos de uso e portas, adaptadores e entrada HTTP), com salvaguardas contra erro da IA aplicadas por código. Veja [`docs/arquitetura.md`](docs/arquitetura.md).
 
 Na demonstração, o front-end percorre o cenário completo no navegador, com as mesmas regras da API, sem Gemini e sem validação de credenciais. No modo integrado, o back-end valida o JWT e o perfil, verifica as citações contra o texto recebido e só gera o plano com o aceite do profissional, que confirma todas as declarações do termo vigente.
 
@@ -61,6 +64,14 @@ Consulte os READMEs de cada repositório para dependências, variáveis de ambie
 ```text
 docs/
   checkpoint-1-documento-de-ideacao.md  Ideação e escopo acadêmico
+  README.md                            Índice da documentação
+  visao-geral.md                       O que o sistema faz e não faz
+  arquitetura.md                       Arquitetura hexagonal e salvaguardas
+  desenvolvimento.md                   Rodar, testar, Postman e CI
+  demo-e-metricas.md                   Dados fictícios e métricas medidas
+  limites-e-licencas.md                Limites e licenças das dependências
+  JOURNAL.md                           Diário de decisões
+  dados-e-seguranca.md                 Dados tratados, LGPD e controles
   contrato-api.md                      Rotas e formatos implementados
   deploy.md                            Deploy no Cloud Run com Vertex AI
 data/

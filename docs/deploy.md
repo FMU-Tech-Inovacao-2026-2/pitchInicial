@@ -80,6 +80,8 @@ Em cada repositório: **Settings > Secrets and variables > Actions > Variables**
 | `CORS_ORIGIN` | sim | — | URL do front-end no Cloud Run |
 | `HEALTHIA_API_URL` | — | sim | URL da API no Cloud Run |
 | `GEMINI_PROVEDOR` | opcional | — | `vertex` (padrão) ou `demonstracao` |
+| `GEMINI_MODEL` | opcional | — | `gemini-3.5-flash` (padrão) |
+| `GEMINI_MODELOS_RESERVA` | opcional | — | `gemini-3.8-flash;gemini-3.1-flash-lite` (separados por `;`) |
 | `VERTEX_LOCATION` | opcional | — | `us-central1` (padrão) |
 | `HEALTHIA_MODO` | — | opcional | `backend` (padrão) ou `demonstracao` |
 
@@ -104,9 +106,14 @@ curl https://<url-do-front>/config.js
 
 Entre no front-end com as contas fictícias do README do back-end e percorra o fluxo: nova alta, revisão, aceite e plano do paciente.
 
+## Auditoria em produção
+
+No Cloud Run, deixe `AUDITORIA_ARQUIVO` vazio: os eventos de auditoria já vão ao Cloud Logging pelo log estruturado (campo `auditoria`). O sistema de arquivos do contêiner é temporário, e um JSONL local se perderia a cada reinício. Para retenção, crie um coletor (sink) do Cloud Logging filtrando `jsonPayload.auditoria.evento`.
+
 ## Custos e limites
 
 - O Cloud Run cobra por uso e escala a zero (`min-instances 0`). O primeiro acesso após inatividade é mais lento.
 - A API roda com `max-instances 1` porque guarda dados em memória. Os dados somem quando a instância reinicia.
-- Cada extração chama o Gemini no Vertex AI e gera custo por token. A API limita 20 extrações a cada 10 minutos por profissional.
+- Cada extração e cada transcrição de PDF chamam o Gemini e geram custo por token. A API limita 20 chamadas a cada 10 minutos por profissional.
+- A disponibilidade de modelos muda com o tempo e pode variar entre a Gemini API e o Vertex AI. Confirme no console quais modelos o projeto acessa antes de definir `GEMINI_MODEL`.
 - Confira os preços vigentes do Cloud Run e do Vertex AI no console antes de publicar.
